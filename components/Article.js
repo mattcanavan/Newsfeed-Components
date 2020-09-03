@@ -1,8 +1,7 @@
 // This is the data we will be using to create our articles. Look at it, then proceed to line 93.
 // OPTIONAL: if you're feeling adventurous, try to make this data an export from a different module, and import it here.
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
-const data = [
-  {
+const data = [{
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -86,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Americans Must Have Life Ruined By Natural Disaters Every 6 Minutes To Fear Climate Change',
+    date: 'Feb 1st, 2019',
+    firstParagraph: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+
+    secondParagraph: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. `,
+
+    thirdParagraph: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
   }
 ];
 
@@ -114,3 +122,56 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+
+function articleMaker({ title, date, firstParagraph, secondParagraph, thirdParagraph } ) {
+  // article div container
+  const articleContainer = document.createElement('div')
+  articleContainer.classList.add('article')
+
+  // h2 title
+  const articleTitle = document.createElement('h2') //create h2 element
+  articleTitle.textContent = title //add articleObj.title data to h2 element
+  articleContainer.appendChild(articleTitle) //append h2 under div container
+
+  // article date
+  const articleDate = document.createElement('p') //create first p element
+  articleDate.classList.add('date') //add class name
+  articleDate.textContent = date
+  articleContainer.appendChild(articleDate) //nest  element under title div
+
+  //article paragraphs
+  const articleP1 = document.createElement('p') //create p tag
+  articleP1.textContent = firstParagraph //add paragraph text data
+  articleContainer.appendChild(articleP1)  //nest  element under title div
+
+  const articleP2 = document.createElement('p') //create p tag
+  articleP2.textContent = secondParagraph  //add paragraph text data
+  articleContainer.appendChild(articleP2)  //nest  element under title div
+
+  const articleP3 = document.createElement('p') //create p tag
+  articleP3.textContent = thirdParagraph //add paragraph text data
+  articleContainer.appendChild(articleP3)  //nest  element under title div
+
+  //span
+  const spanGuy = document.createElement('span')
+  spanGuy.classList.add('expandButton')
+  spanGuy.textContent = '+'
+  articleContainer.appendChild(spanGuy)
+
+  //span event listener
+  spanGuy.addEventListener('click', () =>{
+    articleContainer.classList.toggle('article-open')
+  })
+
+  return articleContainer
+}
+
+const allArticles = document.querySelector('.articles') //select where we're going to send all the articles
+
+data.forEach(articleObj => {
+  const articleContents = articleMaker(articleObj)
+  allArticles.appendChild(articleContents)})
+
+// var test = articleMaker(data[0])
+// allArticles.appendChild(test)
